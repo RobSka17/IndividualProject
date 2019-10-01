@@ -1,0 +1,21 @@
+<!DOCTYPE = html>
+<html>
+<head>
+	<title>{{ title }}</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<h1>Cyraz: War of Realms</h1>
+<div class="w3-dropdown-hover">
+	<button class="w3-button">Menu</button>
+  	<div class="w3-dropdown-content w3-bar-block w3-border">
+  		<a href="{{ url_for('home')}}" class="w3-bar-item w3-button">Home</a>
+  		<p>Search by...</p>
+    	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Name</a>
+    	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Type</a>
+    	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Class</a>
+    </div>
+</div>
+	{% block bc %}{% endblock %}
+</body>
+</html>

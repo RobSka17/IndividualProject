@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block bc %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class='w3-row'>
+<div class='w3-third w3-container'>
+	<form method="POST", action="/search_by_name">
+	<br>{{ form.search_term.label }}
+	{{ form.search_term }}
+	{{ form.submit }}
+</div>
+<div class='w3-third w3-container'>
+	<h4>Include types:</h4>
+	<div class="form">
+		<form method="POST" action="">
+			<div class="form-group">
+				{{ form.bug.label }}
+				{{ form.bug }}
+				{{ form.business.label }}
+				{{ form.business }}
+				{{ form.earth.label }}
+				{{ form.earth }}
+				{{ form.dark.label }}
+				{{ form.dark }}<br>
+				{{ form.fire.label }}
+				{{ form.fire }}
+				{{ form.light.label }}
+				{{ form.light }}
+				{{ form.machine.label }}
+				{{ form.machine }}
+				{{ form.water.label }}
+				{{ form.water }}
+			</div>
+		</form>
+	</div>
+</div>
+<div class='w3-third w3-container'>
+	<h4>Include classes:</h4>
+	<div class="form">
+		<form method="POST" action="">
+			<div class="form-group">
+				{{ form.arachnid.label }}
+				{{ form.arachnid }}
+				{{ form.beast.label }}
+				{{ form.beast }}
+				{{ form.boss.label }}
+				{{ form.boss }}
+				{{ form.demon.label }}
+				{{ form.demon }}
+				{{ form.fish.label }}
+				{{ form.fish }}<br>
+				{{ form.food.label }}
+				{{ form.food }}
+				{{ form.goodboi.label }}
+				{{ form.goodboi }}
+				{{ form.larva.label }}
+				{{ form.larva }}
+				{{ form.noble.label }}
+				{{ form.noble }}
+				{{ form.staff.label }}
+				{{ form.staff }}
+				{{ form.warrior.label }}
+				{{ form.warrior }}
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<div class='w3-container'>
+	<h4>Results:</h4>
+	{% for card in cards %}
+	<p>{{ card.name }}</p>
+	{% endfor %}
+</div>
+
+{% endblock %}
