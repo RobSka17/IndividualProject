@@ -6,7 +6,7 @@ from application.models import CardStats
 class SearchByNameForm(FlaskForm):
 	search_term = StringField('Search:',
 	validators=[
-	Length(min=0, max=100)
+	Length(min=1, max=100)
 	])
 	light = BooleanField('Light')
 	dark = BooleanField('Dark')

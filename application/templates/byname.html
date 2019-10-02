@@ -3,15 +3,27 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div class='w3-row'>
 <div class='w3-third w3-container'>
+	<div class="form">
 	<form method="POST", action="/search_by_name">
+	{{ form.hidden_tag() }}
+	<div class="form-group">
 	<br>{{ form.search_term.label }}
 	{{ form.search_term }}
 	{{ form.submit }}
+	{% if form.search_term.errors %}
+		<div class="error">
+			{% for error in form.search_term.errors %}
+				<span>{{ error }}</span>
+			{% endfor %}
+		</div>
+	{% endif %}
+	</div>
+	</div>
 </div>
 <div class='w3-third w3-container'>
 	<h4>Include types:</h4>
 	<div class="form">
-		<form method="POST" action="">
+		<form method="POST" action="/search_by_name">
 			<div class="form-group">
 				{{ form.bug.label }}
 				{{ form.bug }}
@@ -30,13 +42,12 @@
 				{{ form.water.label }}
 				{{ form.water }}
 			</div>
-		</form>
 	</div>
 </div>
 <div class='w3-third w3-container'>
 	<h4>Include classes:</h4>
 	<div class="form">
-		<form method="POST" action="">
+		<form method="POST" action="/search_by_name">
 			<div class="form-group">
 				{{ form.arachnid.label }}
 				{{ form.arachnid }}
@@ -66,10 +77,18 @@
 </div>
 </div>
 <div class='w3-container'>
-	<h4>Results:</h4>
+	{% if form.search_term.data %}
+	<h4>Showing {{ cardslength }} results containing "{{ form.search_term.data }}":</h4>
 	{% for card in cards %}
-	<p>{{ card.name }}</p>
+	<img src = {{ card.path }} alt = "card" width = "15%"">
+	<p>Name: {{ card.name }}</p>
+	<p>Type: {{ card.type }}</p>
+	<p>Class: {{ card.class1 }} / {{ card.class2 }}</p>
+	<p>Attack: {{ card.attack }}</p>
+	<p>Defence: {{ card.defence }}</p>
+	<p>Alignment: {{ card.alignment }}</p><br>
 	{% endfor %}
+	{% endif %}
 </div>
 
 {% endblock %}

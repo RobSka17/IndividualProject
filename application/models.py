@@ -2,10 +2,11 @@ from application import db
 
 class CardStats(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	path=db.Column(db.String(250), nullable=True, unique=True)
 	name = db.Column(db.String(250), nullable=False, unique=True)
-	type = db.Column(db.String(50), nullable=False, unique=False)
-	class1=db.Column(db.String(100), nullable=False, unique=False)
-	class2=db.Column(db.String(100), nullable=True, unique=False)
+	type = db.Column(db.String(50), nullable=False)
+	class1=db.Column(db.String(100), nullable=False)
+	class2=db.Column(db.String(100), nullable=True)
 	attack=db.Column(db.Integer, nullable=False)
 	defence=db.Column(db.Integer, nullable=False)
 	alignment=db.Column(db.Integer, nullable=False)
