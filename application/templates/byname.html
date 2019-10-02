@@ -40,7 +40,9 @@
 				{{ form.machine.label }}
 				{{ form.machine }}
 				{{ form.water.label }}
-				{{ form.water }}
+				{{ form.water }}<br><br>
+				{{ form.alltypes.label }}
+				{{ form.alltypes }}
 			</div>
 	</div>
 </div>
@@ -59,6 +61,8 @@
 				{{ form.demon }}
 				{{ form.fish.label }}
 				{{ form.fish }}<br>
+				{{ form.flame.label }}
+				{{ form.flame }}
 				{{ form.food.label }}
 				{{ form.food }}
 				{{ form.goodboi.label }}
@@ -70,7 +74,9 @@
 				{{ form.staff.label }}
 				{{ form.staff }}
 				{{ form.warrior.label }}
-				{{ form.warrior }}
+				{{ form.warrior }}<br><br>
+				{{ form.allclasses.label }}
+				{{ form.allclasses }}
 			</div>
 		</form>
 	</div>
@@ -78,7 +84,12 @@
 </div>
 <div class='w3-container'>
 	{% if form.search_term.data %}
+	{% if cardslength > 1 %}
 	<h4>Showing {{ cardslength }} results containing "{{ form.search_term.data }}":</h4>
+	{% else %}
+	<h4>Showing {{ cardslength }} result containing "{{ form.search_term.data }}":</h4>
+	{% endif %}
+	
 	{% for card in cards %}
 	<img src = {{ card.path }} alt = "card" width = "15%"">
 	<p>Name: {{ card.name }}</p>

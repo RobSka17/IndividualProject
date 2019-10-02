@@ -20,3 +20,13 @@ class CardStats(db.Model):
 			'Attack: ', str(self.attack), '\r\n',
 			'Defence: ', str(self.defence), '\r\n',
 			'Alignment : ', str(self.alignment)])
+
+class Decks(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(250), nullable=False, unique=True)
+	cards = db.Column(db.String, nullable=False)
+
+	def __repr__(self):
+		return ''.join(['ID: ', str(self.id), '\r\n',
+			'Name: ', self.name, '\r\n',
+			'Cards', self.cards])
