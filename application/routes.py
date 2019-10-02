@@ -51,5 +51,6 @@ def byname():
 @app.route('/build_a_deck', methods=['GET', 'POST'])
 def builddeck():
 	deckbldr = DeckBuilder()
+	allcards = []
 
 	return render_template('builddeck.html', title='Search by name', form=deckbldr)

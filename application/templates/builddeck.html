@@ -10,8 +10,12 @@
 			<br><h4>Create a Deck:</h4>
 			{{ form.deckname.label }}
 			{{ form.deckname }}
+			<br>{{ form.decksize.label }}
+			{{ form.decksize }}
 			{{ form.submit2 }}
-		</div>
+			{% if decksize.data %}
+			{% for  %}
+			<br> {{ form.cardselect }}
 	</form>
 </div>
 </div>

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length
 from application.models import CardStats
 
@@ -38,5 +38,10 @@ class DeckBuilder(FlaskForm):
 
 	deckname = StringField('Deck Name:')
 	submit2 = SubmitField('Build my deck!')
+	decksize = IntegerField('Choose deck size:')
+	all_cards = []
 
-	cardselect = SelectField[('1','K-Knight'),('2','Fish Lord')]
+	for card in CardStats.query.all():
+		all_cards.append((card.name.lower(),card.name))
+
+	cardselect = SelectField('Select Card', choices = all_cards)
