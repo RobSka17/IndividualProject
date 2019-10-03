@@ -14,8 +14,9 @@
     	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Name</a>
     	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Type</a>
     	<a href="{{ url_for('byname')}}" class="w3-bar-item w3-button">Class</a>
-      <br>
-      <a href="{{ url_for('builddeck')}}" class="w3-bar-item w3-button">Build a deck</a>
+      <p>Deck Builder...</p>
+      <a href="{{ url_for('builddeck')}}" class="w3-bar-item w3-button">Create New Deck</a>
+      <a href="{{ url_for('modifydeck')}}" class="w3-bar-item w3-button">Open Existing Deck</a>
     </div>
 </div>
 	{% block bc %}{% endblock %}

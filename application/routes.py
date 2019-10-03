@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect
 from application import app, db
-from application.models import CardStats
-from application.forms import SearchByNameForm, DeckBuilder
+from application.models import CardStats, Decks
+from application.forms import SearchByNameForm, DeckBuilder, DeckModifier
 
 @app.route('/')
 @app.route('/home')
@@ -51,6 +51,55 @@ def byname():
 @app.route('/build_a_deck', methods=['GET', 'POST'])
 def builddeck():
 	deckbldr = DeckBuilder()
-	allcards = []
+	cardnumber = []
+	if deckbldr.decksize.data:
+		i = 0
+		while i < deckbldr.decksize.data:
+			i+=1
+			cardnumber.append(i)
 
-	return render_template('builddeck.html', title='Search by name', form=deckbldr)
+	if deckbldr.validate_on_submit():
+		print("Submitted")
+		deck=[]
+		for field in deckbldr:
+			if field.type == "SelectField":
+				deck.append(field.data)
+		newdeck = Decks(name = deckbldr.deckname.data, cards=str(deck))
+		db.session.add(newdeck)
+		db.session.commit()
+
+		yourdeck = list(eval(newdeck.cards))
+
+		return render_template('builddeck.html', title='Search by name', form=deckbldr, cardnumber=cardnumber, yourdeck=yourdeck)
+	else:
+		return render_template('builddeck.html', title='Search by name', form=deckbldr, cardnumber=cardnumber)
+
+@app.route('/modify_a_deck', methods=['GET', 'POST'])
+def modifydeck():
+	deckmdfr = DeckModifier()
+	decks = []
+	deck_cards = []
+	if deckmdfr.is_submitted():
+
+		if deckmdfr.search_all_check.data == True:
+				for deck in Decks.query.all():
+					decks.append(deck)
+		else:
+			for deck in Decks.query.all():
+				if deckmdfr.decksearch.data.lower() in deck.name.lower():
+					decks.append(deck)
+
+		for deck in decks:
+			deck_cards.append(list(eval(deck.cards)))
+
+		i = 0
+		for field in deckmdfr:
+			if field.type == "SelectField":
+				while i < len(deck_cards):
+					for card in deck_cards:
+						print(card[i])
+						field.default = card[i]
+						i += 1
+						
+
+	return render_template('modifydeck.html', title='Existing Decks', form=deckmdfr, decks=decks, deckcards=deck_cards)

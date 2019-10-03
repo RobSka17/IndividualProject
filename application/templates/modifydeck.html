@@ -1,23 +1,26 @@
 {% extends 'layout.html' %}
 {% block bc %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<h4>View Your Existing Decks:</h4>
 <div class='w3-container'>
 <div class="form">
-	<form method="POST", action="/build_a_deck">
+	<form method="POST", action="/modify_a_deck">
 		{{ form.hidden_tag() }}
 		<div class="form-group">
-			<br><h4>Create a Deck:</h4>
-			{{ form.deckname.label }}
-			{{ form.deckname }}
-			{{ form.submit2 }}
-			{% if form.deckname.errors %}
-			<div class="error">
-			{% for error in form.deckname.errors %}
-				<span>{{ error }}</span>
-			{% endfor %}
-			</div>
+			{{ form.decksearch.label }}
+			{{ form.decksearch }}
+			{{ form.submit }}
+
+			<br>{{ form.search_all_check.label }}
+			{{ form.search_all_check }}
+			{% if form.search_all_check.data == True %}
 			{% endif %}
+
+			{% for deck in decks %}
+			<p>{{ deck.name }}</p>
+			{% if deck.name == "Rob's Deck" %}
+			<br>{{ form.cardname1.label }}
+			{{ form.cardname1 }}
 			<br>{{ form.cardselect1.label }}
 			{{ form.cardselect1 }}
 			{{ form.cardselect16.label }}
@@ -78,16 +81,11 @@
 			{{ form.cardselect15 }}
 			{{ form.cardselect30.label }}
 			{{ form.cardselect30 }}
-			
+			{% endif %}
+			{% endfor %}
+
+		</div>
 	</form>
-
-	<h4>Your Deck:</h4>
-	{% for card in yourdeck %}
-	{% if card != "none" %}
-	<p>{{ card }}</p>
-	{% endif %}
-	{% endfor %}
 </div>
 </div>
-
 {% endblock %}
