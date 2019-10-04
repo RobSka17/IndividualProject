@@ -80,11 +80,15 @@ class DeckBuilder(FlaskForm):
 	cardselect29 = SelectField('Card 29', choices = all_cards)
 	cardselect30 = SelectField('Card 30', choices = all_cards)
 
-class DeckModifier(FlaskForm):
+class DeckSelect(FlaskForm):
 	decksearch = StringField('Search for your deck: ')
 	submit = SubmitField('Go')
 	search_all_check = BooleanField('(Check to skip search and show all decks)')
 
+	deckselect = SelectField('Select a deck: ', choices = [])
+
+	
+class DeckModifier(FlaskForm):
 	all_cards = []
 
 	all_cards.append(('none','-- None --'))
@@ -92,7 +96,6 @@ class DeckModifier(FlaskForm):
 	for card in CardStats.query.all():
 		all_cards.append((card.name,card.name))
 
-	cardname1 = StringField('Card 1: ')
 	cardselect1 = SelectField('Card 1', choices = all_cards)
 	cardselect2 = SelectField('Card 2', choices = all_cards)
 	cardselect3 = SelectField('Card 3', choices = all_cards)
@@ -123,3 +126,5 @@ class DeckModifier(FlaskForm):
 	cardselect28 = SelectField('Card 28', choices = all_cards)
 	cardselect29 = SelectField('Card 29', choices = all_cards)
 	cardselect30 = SelectField('Card 30', choices = all_cards)
+
+	submit = SubmitField('Submit')

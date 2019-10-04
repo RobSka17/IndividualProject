@@ -1,7 +1,10 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, request
 from application import app, db
 from application.models import CardStats, Decks
-from application.forms import SearchByNameForm, DeckBuilder, DeckModifier
+from application.forms import SearchByNameForm, DeckBuilder, DeckSelect, DeckModifier
+
+deck_data = []
+selected_deck = ""
 
 @app.route('/')
 @app.route('/home')
@@ -74,32 +77,53 @@ def builddeck():
 	else:
 		return render_template('builddeck.html', title='Search by name', form=deckbldr, cardnumber=cardnumber)
 
-@app.route('/modify_a_deck', methods=['GET', 'POST'])
+@app.route('/select_a_deck', methods=['GET', 'POST'])
+def selectdeck():
+	deckslct = DeckSelect()
+	
+	global deck_data
+	global selected_deck
+
+	deckchoices = []
+
+	for deck in Decks.query.all():
+		deckchoices.append((deck.name, deck.name))
+
+	for field in deckslct:
+		if field.type == "SelectField":
+			field.choices = deckchoices
+
+	if deckslct.is_submitted():
+		selected_deck = deckslct.deckselect.data
+		return redirect(url_for('modifydeck'))
+	else:
+		return render_template('selectdeck.html', title='Existing Decks', form=deckslct, deckdata=deck_data, selectdeck=selected_deck)
+
+@app.route('/modify_a_deck', methods = ['GET', 'POST'])
 def modifydeck():
 	deckmdfr = DeckModifier()
-	decks = []
-	deck_cards = []
+
+	print("Say something")
+
+	global deck_data
+	selectfields = []
+	cards = []
+	global selected_deck
+
+	for deck in Decks.query.all():
+		if deck.name == selected_deck:
+			cards = deck.cards
+
+
+	for field in deckmdfr:
+		if field.type == "SelectField":
+			selectfields.append(field)
+
 	if deckmdfr.is_submitted():
-
-		if deckmdfr.search_all_check.data == True:
-				for deck in Decks.query.all():
-					decks.append(deck)
-		else:
-			for deck in Decks.query.all():
-				if deckmdfr.decksearch.data.lower() in deck.name.lower():
-					decks.append(deck)
-
-		for deck in decks:
-			deck_cards.append(list(eval(deck.cards)))
-
 		i = 0
-		for field in deckmdfr:
-			if field.type == "SelectField":
-				while i < len(deck_cards):
-					for card in deck_cards:
-						print(card[i])
-						field.default = card[i]
-						i += 1
-						
+		for selectfield in selectfields:
+			if i < len(cards):
+				selectfield.data = cards[i]
+				i += 1
 
-	return render_template('modifydeck.html', title='Existing Decks', form=deckmdfr, decks=decks, deckcards=deck_cards)
+	return render_template('modifydeck.html', title='Modify Deck', form=deckmdfr, selecteddeck=selected_deck)
