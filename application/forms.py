@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField
-from wtforms.validators import DataRequired, Length
-from application.models import CardStats
+from wtforms import StringField, SubmitField, BooleanField, SelectField, IntegerField, PasswordField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from application.models import CardStats, Users
+from flask_login import current_user
 
 class SearchByNameForm(FlaskForm):
 	search_term = StringField('Search:',
@@ -27,12 +28,55 @@ class SearchByNameForm(FlaskForm):
 	food = BooleanField('Food')
 	goodboi = BooleanField('Good Boi')
 	larva = BooleanField('Larva')
+	lepidoptera = BooleanField('Lepidoptera')
 	noble = BooleanField('Noble')
 	staff = BooleanField('Staff')
 	warrior = BooleanField('Warrior')
 	allclasses = BooleanField('Check all')
 
 	submit = SubmitField('Go')
+
+class SearchByTypeForm(FlaskForm):
+
+	all_types = [('Bug','Bug'),('Business','Business'),('Dark','Dark'),('Earth','Earth'),('Fire','Fire'),('Light','Light'),('Machine','Machine')]
+
+	select_type = SelectField('Select Type: ', choices = all_types)
+
+	arachnid = BooleanField('Arachnid')
+	beast = BooleanField('Beast')
+	boss = BooleanField('Boss')
+	demon = BooleanField('Demon')
+	fish = BooleanField('Fish')
+	flame = BooleanField('Flame')
+	food = BooleanField('Food')
+	goodboi = BooleanField('Good Boi')
+	larva = BooleanField('Larva')
+	lepidoptera = BooleanField('Lepidoptera')
+	noble = BooleanField('Noble')
+	staff = BooleanField('Staff')
+	warrior = BooleanField('Warrior')
+	allclasses = BooleanField('Check all')
+
+	submit = SubmitField('Go')
+
+class SearchByClassForm(FlaskForm):
+
+	all_classes = [('Arachnid','Arachnid'),('Beast','Beast'),('Boss','Boss'),('Demon','Demon'),('Fish','Fish'),('Flame','Flame'),('Food','Food'),('Good Boi','Good Boi'),('Larva','Larva'),('Lepidoptera','Lepidoptera'),('Noble','Noble'),('Staff','Staff'),('Warrior','Warrior')]
+
+	select_class = SelectField('Select Type: ', choices = all_classes)
+
+	light = BooleanField('Light')
+	dark = BooleanField('Dark')
+	fire = BooleanField('Fire')
+	water = BooleanField('Water')
+	machine = BooleanField('Machine')
+	bug = BooleanField('Bug')
+	business = BooleanField('Business')
+	earth = BooleanField('Earth')
+	alltypes = BooleanField('Check all')
+
+	submit = SubmitField('Go')
+
 
 class DeckBuilder(FlaskForm):
 
@@ -127,4 +171,74 @@ class DeckModifier(FlaskForm):
 	cardselect29 = SelectField('Card 29', choices = all_cards)
 	cardselect30 = SelectField('Card 30', choices = all_cards)
 
-	submit = SubmitField('Submit')
+	submitdeck = SubmitField('Save Changes')
+	deletedeck = SubmitField('Delete Deck')
+
+class RegistrationForm(FlaskForm):
+	first_name = StringField('First Name',
+		validators=[
+		DataRequired(),
+		Length(min=2, max=30)
+		])
+	last_name = StringField('Last Name',
+		validators=[
+		DataRequired(),
+		Length(min=2, max=30)
+		])
+	email = StringField('Email',
+		validators=[
+		DataRequired(),
+		Email()
+		])
+	password = PasswordField('Password',
+		validators=[
+		DataRequired()
+		])
+	confirm_password = PasswordField('Confirm Password',
+		validators=[
+		DataRequired(),
+		EqualTo('password')
+		])
+	submit = SubmitField('Sign Up')
+
+	def validate_email(self, email):
+		user = Users.query.filter_by(email=email.data).first()
+		if user:
+			raise ValidationError('Email already in use!')
+
+class LoginForm(FlaskForm):
+	email = StringField('Email',
+		validators=[
+			DataRequired(),
+			Email()
+			])
+	password = PasswordField('Password',
+		validators=[
+			DataRequired(),
+			])
+	remember = BooleanField('Remember Me')
+	submit = SubmitField('Log in')
+
+class UpdateAccountForm(FlaskForm):
+	first_name = StringField('First Name',
+		validators=[
+		DataRequired(),
+		Length(min=2, max=30)
+		])
+	last_name = StringField('Last Name',
+		validators=[
+		DataRequired(),
+		Length(min=2, max=30)
+		])
+	email = StringField('Email',
+		validators=[
+		DataRequired(),
+		Email()
+		])
+	submit = SubmitField('Update')
+
+	def validate_email(self, email):
+		if email.data != current_user.email:
+			user = Users.query.filter_by(email=email.data).first()
+			if user:
+				raise ValidationError('Email already in use!')

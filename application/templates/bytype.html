@@ -4,52 +4,19 @@
 <div class='w3-row'>
 <div class='w3-third w3-container'>
 	<div class="form">
-	<form method="POST", action="/search_by_name">
+	<form method="POST", action="/search_by_type">
 	{{ form.hidden_tag() }}
 	<div class="form-group">
-	<br>{{ form.search_term.label }}
-	{{ form.search_term }}
+	<br>{{ form.select_type.label }}
+	{{ form.select_type }}
 	{{ form.submit }}
-	{% if form.search_term.errors %}
-		<div class="error">
-			{% for error in form.search_term.errors %}
-				<span>{{ error }}</span>
-			{% endfor %}
-		</div>
-	{% endif %}
 	</div>
-	</div>
-</div>
-<div class='w3-third w3-container'>
-	<h4>Include types:</h4>
-	<div class="form">
-		<form method="POST" action="/search_by_name">
-			<div class="form-group">
-				{{ form.bug.label }}
-				{{ form.bug }}
-				{{ form.business.label }}
-				{{ form.business }}
-				{{ form.earth.label }}
-				{{ form.earth }}
-				{{ form.dark.label }}
-				{{ form.dark }}<br>
-				{{ form.fire.label }}
-				{{ form.fire }}
-				{{ form.light.label }}
-				{{ form.light }}
-				{{ form.machine.label }}
-				{{ form.machine }}
-				{{ form.water.label }}
-				{{ form.water }}<br><br>
-				{{ form.alltypes.label }}
-				{{ form.alltypes }}
-			</div>
 	</div>
 </div>
 <div class='w3-third w3-container'>
 	<h4>Include classes:</h4>
 	<div class="form">
-		<form method="POST" action="/search_by_name">
+		<form method="POST" action="/search_by_type">
 			<div class="form-group">
 				{{ form.arachnid.label }}
 				{{ form.arachnid }}
@@ -83,15 +50,7 @@
 		</form>
 	</div>
 </div>
-</div>
 <div class='w3-container'>
-	{% if form.search_term.data %}
-	{% if cardslength > 1 %}
-	<h4>Showing {{ cardslength }} results containing "{{ form.search_term.data }}":</h4>
-	{% else %}
-	<h4>Showing {{ cardslength }} result containing "{{ form.search_term.data }}":</h4>
-	{% endif %}
-	
 	{% for card in cards %}
 	<img src = {{ card.path }} alt = "card" width = "15%"">
 	<p>Name: {{ card.name }}</p>
@@ -101,7 +60,5 @@
 	<p>Defence: {{ card.defence }}</p>
 	<p>Alignment: {{ card.alignment }}</p><br>
 	{% endfor %}
-	{% endif %}
 </div>
-
 {% endblock %}

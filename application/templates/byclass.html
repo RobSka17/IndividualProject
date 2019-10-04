@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block bc %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class='w3-row'>
+<div class='w3-third w3-container'>
+	<div class="form">
+	<form method="POST", action="/search_by_class">
+	{{ form.hidden_tag() }}
+	<div class="form-group">
+	<br>{{ form.select_class.label }}
+	{{ form.select_class }}
+	{{ form.submit }}
+	</div>
+	</div>
+</div>
+<div class='w3-third w3-container'>
+	<h4>Include classes:</h4>
+	<div class="form">
+		<form method="POST" action="/search_by_class">
+			<div class="form-group">
+				{{ form.bug.label }}
+				{{ form.bug }}
+				{{ form.business.label }}
+				{{ form.business }}
+				{{ form.earth.label }}
+				{{ form.earth }}
+				{{ form.dark.label }}
+				{{ form.dark }}<br>
+				{{ form.fire.label }}
+				{{ form.fire }}
+				{{ form.light.label }}
+				{{ form.light }}
+				{{ form.machine.label }}
+				{{ form.machine }}
+				{{ form.water.label }}
+				{{ form.water }}<br><br>
+				{{ form.alltypes.label }}
+				{{ form.alltypes }}
+			</div>
+		</form>
+	</div>
+</div>
+<div class='w3-container'>
+	{% for card in cards %}
+	<img src = {{ card.path }} alt = "card" width = "15%"">
+	<p>Name: {{ card.name }}</p>
+	<p>Type: {{ card.type }}</p>
+	<p>Class: {{ card.class1 }} / {{ card.class2 }}</p>
+	<p>Attack: {{ card.attack }}</p>
+	<p>Defence: {{ card.defence }}</p>
+	<p>Alignment: {{ card.alignment }}</p><br>
+	{% endfor %}
+</div>
+{% endblock %}
