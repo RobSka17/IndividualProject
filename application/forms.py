@@ -38,7 +38,7 @@ class SearchByNameForm(FlaskForm):
 
 class SearchByTypeForm(FlaskForm):
 
-	all_types = [('Bug','Bug'),('Business','Business'),('Dark','Dark'),('Earth','Earth'),('Fire','Fire'),('Light','Light'),('Machine','Machine')]
+	all_types = [('Bug','Bug'),('Business','Business'),('Dark','Dark'),('Earth','Earth'),('Fire','Fire'),('Light','Light'),('Machine','Machine'),('Water','Water')]
 
 	select_type = SelectField('Select Type: ', choices = all_types)
 
@@ -63,7 +63,7 @@ class SearchByClassForm(FlaskForm):
 
 	all_classes = [('Arachnid','Arachnid'),('Beast','Beast'),('Boss','Boss'),('Demon','Demon'),('Fish','Fish'),('Flame','Flame'),('Food','Food'),('Good Boi','Good Boi'),('Larva','Larva'),('Lepidoptera','Lepidoptera'),('Noble','Noble'),('Staff','Staff'),('Warrior','Warrior')]
 
-	select_class = SelectField('Select Type: ', choices = all_classes)
+	select_class = SelectField('Select Class: ', choices = all_classes)
 
 	light = BooleanField('Light')
 	dark = BooleanField('Dark')
@@ -219,6 +219,11 @@ class LoginForm(FlaskForm):
 	remember = BooleanField('Remember Me')
 	submit = SubmitField('Log in')
 
+	def validate_email(self, email):
+		user = Users.query.filter_by(email=email.data).first()
+		if not user:
+			raise ValidationError('No account exists under the given user ID. Check your details and try again.')
+
 class UpdateAccountForm(FlaskForm):
 	first_name = StringField('First Name',
 		validators=[
@@ -242,3 +247,9 @@ class UpdateAccountForm(FlaskForm):
 			user = Users.query.filter_by(email=email.data).first()
 			if user:
 				raise ValidationError('Email already in use!')
+
+class DeleteAccountForm(FlaskForm):
+	password = PasswordField('Enter Password:',
+		validators=[
+		DataRequired()])
+	delete = SubmitField('Delete Account')

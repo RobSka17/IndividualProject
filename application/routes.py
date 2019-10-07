@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request
 from application import app, db, bcrypt
 from application.models import CardStats, Decks, Users
-from application.forms import SearchByNameForm, SearchByTypeForm, SearchByClassForm, DeckBuilder, DeckSelect, DeckModifier, RegistrationForm, LoginForm, UpdateAccountForm
+from application.forms import SearchByNameForm, SearchByTypeForm, SearchByClassForm, DeckBuilder, DeckSelect, DeckModifier, RegistrationForm, LoginForm, UpdateAccountForm, DeleteAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 deck_data = []
@@ -20,6 +20,7 @@ def byname():
 	if srchbyname.validate_on_submit():
 		unrefinedcards = cardstats.query.all()
 		cards = []
+		refinedcards = []
 		typefilters = []
 		classfilters = []
 		for card in unrefinedcards:
@@ -29,27 +30,30 @@ def byname():
 						if field.type == "BooleanField":
 							if field.data == True:
 								if field.label.text == "Light" or field.label.text == "Dark" or field.label.text == "Fire" or field.label.text == "Water" or field.label.text == "Machine" or field.label.text == "Bug" or field.label.text == "Business" or field.label.text == "Earth":
-									typefilters.append(field)
 									if field.label.text.lower() == card.type.lower():
-										if card not in cards:
-											cards.append(card)
-				elif srchbyname.allclasses.data == False:
-					for field in srchbyname:
-						if field.type == "BooleanField":
-							if field.data == True:
-								if field.label.text == "Arachnid" or field.label.text == "Beast" or field.label.text == "Boss" or field.label.text == "Demon" or field.label.text == "Fish" or field.label.text == "Flame" or field.label.text == "Food" or field.label.text == "Good Boi" or field.label.text == "Larva" or field.label.text == "Noble" or field.label.text == "Staff" or field.label.text == "Warrior": 
-									classfilters.append(field)
-									if field.label.text.lower() == card.class1.lower() or field.label.text.lower() == card.class2.lower():
 										if card not in cards:
 											cards.append(card)
 				else:
 					cards.append(card)
+				if srchbyname.allclasses.data == False:
+					for field in srchbyname:
+						if field.type == "BooleanField":
+							if field.data == True:
+								if field.label.text == "Arachnid" or field.label.text == "Beast" or field.label.text == "Boss" or field.label.text == "Demon" or field.label.text == "Fish" or field.label.text == "Flame" or field.label.text == "Food" or field.label.text == "Good Boi" or field.label.text == "Larva" or field.label.text == "Lepidoptera" or field.label.text == "Noble" or field.label.text == "Staff" or field.label.text == "Warrior": 
+									if field.label.text.lower() == card.class1.lower() or field.label.text.lower() == card.class2.lower():
+										if card not in refinedcards:
+											refinedcards.append(card)
+				else:
+					if card in cards:
+						refinedcards.append(card)				
 
 
-		cards_length = len(cards)
+		cards_length = len(refinedcards)
 
-		return render_template('byname.html', title='Search by name', form=srchbyname, cards=cards, cardslength=cards_length)
+		return render_template('byname.html', title='Search by name', form=srchbyname, cards=refinedcards, cardslength=cards_length)
+
 	else:
+
 		return render_template('byname.html', title='Search by name', form=srchbyname)
 
 @app.route('/search_by_type', methods=['GET', 'POST'])
@@ -65,7 +69,7 @@ def bytype():
 					for field in srchbytype:
 						if field.type == "BooleanField":
 							if field.data == True:
-								if field.label.text == "Arachnid" or field.label.text == "Beast" or field.label.text == "Boss" or field.label.text == "Demon" or field.label.text == "Fish" or field.label.text == "Flame" or field.label.text == "Food" or field.label.text == "Good Boi" or field.label.text == "Larva" or field.label.text == "Noble" or field.label.text == "Staff" or field.label.text == "Warrior": 
+								if field.label.text == "Arachnid" or field.label.text == "Beast" or field.label.text == "Boss" or field.label.text == "Demon" or field.label.text == "Fish" or field.label.text == "Flame" or field.label.text == "Food" or field.label.text == "Good Boi" or field.label.text == "Larva" or field.label.text == "Lepidoptera" or field.label.text == "Noble" or field.label.text == "Staff" or field.label.text == "Warrior": 
 									classfilters.append(field)
 									if field.label.text.lower() == card.class1.lower() or field.label.text.lower() == card.class2.lower():
 										if card not in cards:
@@ -88,18 +92,18 @@ def byclass():
 		cards = []
 		typefilters = []
 		for card in unrefinedcards:
-				if srchbyname.alltypes.data == False:
-					for field in srchbyname:
+				if srchbyclass.alltypes.data == False:
+					for field in srchbyclass:
 						if field.type == "BooleanField":
 							if field.data == True:
 								if field.label.text == "Light" or field.label.text == "Dark" or field.label.text == "Fire" or field.label.text == "Water" or field.label.text == "Machine" or field.label.text == "Bug" or field.label.text == "Business" or field.label.text == "Earth":
 									typefilters.append(field)
 									if field.label.text.lower() == card.type.lower():
 										if card not in cards:
-											if card.class1 == srchbyclass.class_select.data or card.class2 == srchbyclass.class_select.data:
+											if card.class1 == srchbyclass.select_class.data or card.class2 == srchbyclass.select_class.data:
 												cards.append(card)
 				else:
-					if card.type == srchbytype.select_type.data:
+					if card.class1 == srchbyclass.select_class.data or card.class2 == srchbyclass.select_class.data:
 						cards.append(card)
 
 		return render_template('byclass.html', title='Search by class', form=srchbyclass, cards=cards)
@@ -242,7 +246,7 @@ def login():
 			if next_page:
 				return redirect(next_page)
 			else:
-				return redirect(url_for('home'))
+				return redirect(url_for('login'))
 	return render_template('login.html', title='Login', form=form)
 
 @app.route('/logout')
@@ -253,7 +257,13 @@ def logout():
 @login_required
 def account():
 	form = UpdateAccountForm()
-	if form.validate_on_submit():
+	deleteaccountform = DeleteAccountForm()
+	if deleteaccountform.delete.data:
+		Users.query.filter_by(id = current_user.id).delete()
+		db.session.commit()
+		return redirect(url_for('home'))
+
+	elif form.validate_on_submit():
 		current_user.first_name = form.first_name.data
 		current_user.last_name = form.last_name.data
 		current_user.email = form.email.data
@@ -264,4 +274,4 @@ def account():
 		form.last_name.data = current_user.last_name
 		form.email.data = current_user.email
 
-	return render_template('account.html', title='Account', form=form)
+	return render_template('account.html', title='Account', form=form, form2=deleteaccountform)

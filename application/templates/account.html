@@ -2,8 +2,7 @@
 {% block bc %}
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<h1>{{ current_user.first_name }} {{ current_user.last_name }}'s Account Page</h1>
-	<p>Update your details here:</p>
-
+	<h4>Update your details here:</h4>
 	<div class="form">
 		<form method="POST" action="">
 			{{ form.hidden_tag() }}
@@ -43,6 +42,25 @@
 				{{ form.submit }}
 			</div>
 		</form>
+	</div>
+	<div class="form">
+		<form method="POST" action="">
+			<br><h4>Delete Account:</h4>
+			<p>Warning: Proceeding with this operation will PERMANENTLY delete your account. For this reason, you must enter your password before proceeding.</p>
+			<br>{{ form2.password.label }}
+			{{ form2.password }}
+			{% if form2.password.errors %}
+					
+					<div class="error">
+						{% for error in form2.password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+			<br><br>{{ form2.delete }}
+
+		</form>
+		
 	</div>
 
 {% endblock %}

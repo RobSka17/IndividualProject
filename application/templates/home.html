@@ -1,55 +1,40 @@
 {% extends 'layout.html' %}
 {% block bc %}
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<div class='w3-container w3-grey w3-border w3-center'>
-	<div class='w3-panel w3-black'>
-		<h2>Cards:</h2>
-	</div>
 
-	<div class='w3-cell-row w3-cell-center'>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/k-knightcard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/butterflamecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-	</div>
-	<br><div class='w3-cell-row w3-cell-center'>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-	</div>
-	<br><div class='w3-cell-row w3-cell-center'>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-	</div>
-	<br><div class='w3-cell-row w3-cell-center'>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-		<div class='w3-cell'>
-			<img src="static/caterpillagecard.png" class='w3-border w3-border-black' alt="Caterpillage" height="300" width="225">
-		</div>
-	</div>
+<style>
+  .mySlides {display:block;}
+</style>
+<div class="w3-container w3-black">
+<div class="w3-content w3-section w3-black" style="max-width:400px">
+  <img class="mySlides w3-animate-right" src="../static/k-knightcard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/princesspoochcard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/fishlordcard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/salamanagercard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/conducktorcard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/caterpillagecard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/flamechrysaliscard.png" style="width:100%">
+  <img class="mySlides w3-animate-right" src="../static/butterflamecard.png" style="width:100%">
+</div>
+<div>
+
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 4200);    
+}
+</script>
+
+</div>
 </div>
 		
 {% endblock %}
