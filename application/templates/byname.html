@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% block bc %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-container w3-black">
+<div class="w3-container w3-margin w3-dark-grey">
 <div class='w3-row'>
 <div class='w3-third w3-container'>
 	<div class="form">
@@ -102,6 +104,8 @@
 	<p>Alignment: {{ card.alignment }}</p><br>
 	{% endfor %}
 	{% endif %}
+</div>
+</div>
 </div>
 
 {% endblock %}
