@@ -192,7 +192,8 @@ class RegistrationForm(FlaskForm):
 		])
 	password = PasswordField('Password',
 		validators=[
-		DataRequired()
+		DataRequired(),
+		Length(min=6)
 		])
 	confirm_password = PasswordField('Confirm Password',
 		validators=[
