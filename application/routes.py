@@ -79,7 +79,9 @@ def bytype():
 					if card.type == srchbytype.select_type.data:
 						cards.append(card)
 
-		return render_template('bytype.html', title='Search by type', form=srchbytype, cards=cards)
+		cards_length = len(cards)
+
+		return render_template('bytype.html', title='Search by type', form=srchbytype, cards=cards, cardslength=cards_length)
 	else:
 		return render_template('bytype.html', title='Search by type', form=srchbytype)
 
@@ -258,12 +260,22 @@ def logout():
 def account():
 	form = UpdateAccountForm()
 	deleteaccountform = DeleteAccountForm()
-	if deleteaccountform.delete.data:
-		Users.query.filter_by(id = current_user.id).delete()
-		db.session.commit()
-		return redirect(url_for('home'))
+	wrong_password = False
 
-	elif form.validate_on_submit():
+	if deleteaccountform.delete.data:
+		user = Users.query.filter_by(email=current_user.email).first()
+		if bcrypt.check_password_hash(user.password, deleteaccountform.password.data):
+			wrong_password = False
+			Decks.query.filter_by(user_id = current_user.id).delete()
+			db.session.commit()
+			Users.query.filter_by(id = current_user.id).delete()
+			db.session.commit()
+			return redirect(url_for('home'))
+		else:
+			wrong_password = True
+
+
+	if form.validate_on_submit():
 		current_user.first_name = form.first_name.data
 		current_user.last_name = form.last_name.data
 		current_user.email = form.email.data
@@ -274,4 +286,4 @@ def account():
 		form.last_name.data = current_user.last_name
 		form.email.data = current_user.email
 
-	return render_template('account.html', title='Account', form=form, form2=deleteaccountform)
+	return render_template('account.html', title='Account', form=form, form2=deleteaccountform, wrongpassword=wrong_password)

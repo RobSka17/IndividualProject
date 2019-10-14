@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block bc %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-container w3-round w3-margin w3-dark-grey">
 <div class='w3-row'>
 <div class='w3-third w3-container'>
 	<div class="form">
@@ -51,6 +52,15 @@
 	</div>
 </div>
 <div class='w3-container'>
+
+	{% if cards %}
+	{% if cardslength > 1 %}
+	<h4>Showing {{ cardslength }} results:</h4>
+	{% else %}
+	<h4>Showing {{ cardslength }} result:</h4>
+	{% endif %}
+	{% endif %}
+
 	{% for card in cards %}
 	<img src = {{ card.path }} alt = "card" width = "15%"">
 	<p>Name: {{ card.name }}</p>
@@ -60,5 +70,7 @@
 	<p>Defence: {{ card.defence }}</p>
 	<p>Alignment: {{ card.alignment }}</p><br>
 	{% endfor %}
+
+</div>
 </div>
 {% endblock %}

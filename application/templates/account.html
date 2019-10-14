@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block bc %}
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<div class="w3-container w3-round w3-margin w3-dark-grey">
 	<h1>{{ current_user.first_name }} {{ current_user.last_name }}'s Account Page</h1>
 	<h4>Update your details here:</h4>
 	<div class="form">
@@ -43,24 +44,20 @@
 			</div>
 		</form>
 	</div>
-	<div class="form">
-		<form method="POST" action="">
+	<div class="form2">
+		<form method="POST" action="account">
 			<br><h4>Delete Account:</h4>
 			<p>Warning: Proceeding with this operation will PERMANENTLY delete your account. For this reason, you must enter your password before proceeding.</p>
 			<br>{{ form2.password.label }}
 			{{ form2.password }}
-			{% if form2.password.errors %}
-					
-					<div class="error">
-						{% for error in form2.password.errors %}
-							<span>{{ error }}</span>
-						{% endfor %}
-					</div>
-				{% endif %}
+			{% if wrongpassword %}
+			<p>You have entered an incorrect password. Check your details and try again.</p>
+			{% endif %}
 			<br><br>{{ form2.delete }}
 
 		</form>
 		
 	</div>
+</div>
 
 {% endblock %}

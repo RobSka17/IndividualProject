@@ -3,16 +3,23 @@
 <head>
 	<title>{{ title }}</title>
 </head>
-<body>
+<style>
+  #bodyid #container{
+    background-image: url('../static/pagebackground.png')
+  }
+</style>
+<body id='bodyid'>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<div class ="w3-container w3-center w3-black w3-topbar w3-leftbar w3-rightbar w3-border-dark-grey">
+<div id='container' class="w3-container" style="min-height:1200;">
+<br>
+<div class ="w3-container w3-center ">
 <img src="../static/logo.png" alt="Cyraz: War of Realms" width="50%"></img>
 </div>
-<div class="w3-container  w3-dark-grey">
+<div class="w3-container w3-margin-left w3-margin-right">
 {% if current_user.is_authenticated %}
-<a href="{{ url_for('home')}}" class="w3-bar-item w3-button w3-dark-grey">Home</a>
+<a href="{{ url_for('home')}}" class="w3-bar-item w3-button w3-round w3-dark-grey w3-border">Home</a>
 <div class="w3-dropdown-hover w3-dark-grey">
-  <button class="w3-button w3-dark-grey">Search By...</button>
+  <button class="w3-button w3-round w3-round w3-dark-grey w3-border">Search By...</button>
   <div class="w3-dropdown-content w3-bar-block w3-dark-grey w3-border">
     <a href="{{ url_for('byname')}}" class="w3-bar-item w3-button w3-dark-grey">Name</a>
     <a href="{{ url_for('bytype')}}" class="w3-bar-item w3-button w3-dark-grey">Type</a>
@@ -20,38 +27,40 @@
   </div>
 </div>
 <div class="w3-dropdown-hover w3-dark-grey">
-  <button class="w3-button w3-dark-grey">Deck Builder...</button>
-  <div class="w3-dropdown-content w3-bar-block w3-dark-grey w3-border">
+  <button class="w3-button w3-round w3-round w3-dark-grey w3-border">Deck Builder...</button>
+  <div class="w3-dropdown-content w3-round w3-bar-block w3-dark-grey w3-border">
     <a href="{{ url_for('builddeck')}}" class="w3-bar-item w3-button w3-dark-grey">Create New Deck</a>
     <a href="{{ url_for('selectdeck')}}" class="w3-bar-item w3-button w3-dark-grey">Open Existing Deck</a>
   </div>
 </div>
 <div class="w3-dropdown-hover w3-dark-grey">
-  <button class="w3-button w3-dark-grey">Account...</button>
-  <div class="w3-dropdown-content w3-bar-block w3-dark-grey w3-border">
+  <button class="w3-button w3-round w3-round w3-dark-grey w3-border">Account...</button>
+  <div class="w3-dropdown-content w3-round w3-bar-block w3-dark-grey w3-border">
     <a href="{{ url_for('account')}}" class="w3-bar-item w3-button w3-dark-grey">Account</a>
     <a href="{{ url_for('logout')}}" class="w3-bar-item w3-button w3-dark-grey">Logout</a>
   </div>
 </div>
 {% else %}
-<a href="{{ url_for('home')}}" class="w3-bar-item w3-button w3-dark-grey">Home</a>
+<a href="{{ url_for('home')}}" class="w3-bar-item w3-button w3-round w3-border w3-dark-grey">Home</a>
 <div class="w3-dropdown-hover w3-dark-grey">
-  <button class="w3-button w3-dark-grey">Search By...</button>
-  <div class="w3-dropdown-content w3-bar-block w3-border w3-dark-grey">
+  <button class="w3-button w3-round w3-border w3-dark-grey">Search By...</button>
+  <div class="w3-dropdown-content w3-round w3-bar-block w3-border w3-dark-grey">
     <a href="{{ url_for('byname')}}" class="w3-bar-item w3-button w3-dark-grey">Name</a>
     <a href="{{ url_for('bytype')}}" class="w3-bar-item w3-button w3-dark-grey">Type</a>
     <a href="{{ url_for('byclass')}}" class="w3-bar-item w3-button w3-dark-grey">Class</a>
   </div>
 </div>
 <div class="w3-dropdown-hover w3-dark-grey">
-  <button class="w3-button w3-dark-grey">Account...</button>
-  <div class="w3-dropdown-content w3-bar-block w3-dark-grey w3-border">
+  <button class="w3-button w3-round w3-border w3-dark-grey">Account...</button>
+  <div class="w3-dropdown-content w3-round w3-bar-block w3-dark-grey w3-border">
     <a href="{{ url_for('login')}}" class="w3-bar-item w3-button w3-dark-grey">Login</a>
     <a href="{{ url_for('register')}}" class="w3-bar-item w3-button w3-dark-grey">Register</a>
   </div>
 </div>
 {% endif %}
 </div>
+<br>
+
 	{% block bc %}{% endblock %}
 </body>
 </html>

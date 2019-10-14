@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, BooleanField, SelectField, Integer
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from application.models import CardStats, Users
 from flask_login import current_user
+from application import bcrypt
 
 class SearchByNameForm(FlaskForm):
 	search_term = StringField('Search:',

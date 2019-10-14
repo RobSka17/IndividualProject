@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block bc %}
+<div class="w3-container w3-round w3-margin w3-dark-grey">
 			<form method="POST", action="/modify_a_deck">
 			{{ form.hidden_tag() }}
 			<div class="form-group">
@@ -68,4 +69,5 @@
 			{{ form.deletedeck }}
 		</div>
 	</form>
+</div>
 {% endblock %}

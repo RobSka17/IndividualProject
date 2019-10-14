@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 {% block bc %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-container w3-round w3-margin w3-dark-grey">
 <h4>View Your Existing Decks:</h4>
-<div class='w3-container'>
 <div class="form">
 	<form method="POST", action="/select_a_deck">
 		{{ form.hidden_tag() }}
