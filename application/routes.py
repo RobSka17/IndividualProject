@@ -263,6 +263,9 @@ def account():
 	wrong_password = False
 
 	if deleteaccountform.delete.data:
+		form.first_name.data = current_user.first_name
+		form.last_name.data = current_user.last_name 
+		form.email.data = current_user.email 
 		user = Users.query.filter_by(email=current_user.email).first()
 		if bcrypt.check_password_hash(user.password, deleteaccountform.password.data):
 			wrong_password = False
@@ -275,7 +278,7 @@ def account():
 			wrong_password = True
 
 
-	if form.validate_on_submit():
+	elif form.validate_on_submit():
 		current_user.first_name = form.first_name.data
 		current_user.last_name = form.last_name.data
 		current_user.email = form.email.data

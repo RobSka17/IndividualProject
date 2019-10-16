@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block bc %}
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<div class="w3-container w3-round w3-margin w3-dark-grey">
+	<div class="w3-container w3-round w3-margin w3-border w3-dark-grey">
 	<h1>{{ current_user.first_name }} {{ current_user.last_name }}'s Account Page</h1>
 	<h4>Update your details here:</h4>
 	<div class="form">
@@ -14,7 +14,7 @@
 					
 					<div class="error">
 						{% for error in form.first_name.errors %}
-							<span>{{ error }}</span>
+							<span style = "color: red">{{ error }}</span>
 						{% endfor %}
 					</div>
 				{% endif %}
@@ -24,7 +24,7 @@
 					
 					<div class="error">
 						{% for error in form.last_name.errors %}
-							<span>{{ error }}</span>
+							<span style = "color: red">{{ error }}</span>
 						{% endfor %}
 					</div>
 				{% endif %}
@@ -34,7 +34,7 @@
 					
 					<div class="error">
 						{% for error in form.email.errors %}
-							<span>{{ error }}</span>
+							<span style = "color: red">{{ error }}</span>
 						{% endfor %}
 					</div>
 				{% endif %}
@@ -51,7 +51,7 @@
 			<br>{{ form2.password.label }}
 			{{ form2.password }}
 			{% if wrongpassword %}
-			<p>You have entered an incorrect password. Check your details and try again.</p>
+			<p style = "color: red">You have entered an incorrect password. Check your details and try again.</p>
 			{% endif %}
 			<br><br>{{ form2.delete }}
 

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block bc %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<div class="w3-container w3-round w3-margin w3-dark-grey">
+<div class="w3-container w3-round w3-margin w3-border w3-dark-grey">
 <div class='w3-container'>
 <div class="form">
 	<form method="POST", action="/build_a_deck">
@@ -18,7 +18,7 @@
 			{% endfor %}
 			</div>
 			{% endif %}
-			<br>{{ form.cardselect1.label }}
+			<br><br>{{ form.cardselect1.label }}
 			{{ form.cardselect1 }}
 			{{ form.cardselect16.label }}
 			{{ form.cardselect16 }}
@@ -80,13 +80,6 @@
 			{{ form.cardselect30 }}
 			
 	</form>
-
-	<h4>Your Deck:</h4>
-	{% for card in yourdeck %}
-	{% if card != "none" %}
-	<p>{{ card }}</p>
-	{% endif %}
-	{% endfor %}
 </div>
 </div>
 
