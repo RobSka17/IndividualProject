@@ -1,0 +1,6 @@
+Created account under name: Bob Bobbington with email address of bob@bobmail.bob at date/time: October 18 2019 - 12:48:30
+----------------------------------------
+Updated account as: Bob Bobbington with email address of bob@bobmail.com at date/time: October 18 2019 - 12:52:54
+----------------------------------------
+Deleted account under name: Bob Bobbington with email address of bob@bobmail.com at date/time: October 18 2019 - 12:53:29
+----------------------------------------

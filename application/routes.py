@@ -3,6 +3,7 @@ from application import app, db, bcrypt
 from application.models import CardStats, Decks, Users
 from application.forms import SearchByNameForm, SearchByTypeForm, SearchByClassForm, DeckBuilder, DeckSelect, DeckModifier, RegistrationForm, LoginForm, UpdateAccountForm, DeleteAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 
 deck_data = []
 selected_deck = ""
@@ -141,11 +142,16 @@ def builddeck():
 @app.route('/select_a_deck', methods=['GET', 'POST'])
 def selectdeck():
 	deckslct = DeckSelect()
+	cardstats = CardStats()
 	
 	global deck_data
 	global selected_deck
 
 	deckchoices = []
+	cards = []
+	previewdeck = ""
+	cardimages = []
+	preview = False
 
 	for deck in Decks.query.all():
 		if deck.user_id == current_user.id:
@@ -156,10 +162,26 @@ def selectdeck():
 			field.choices = deckchoices
 
 	if deckslct.is_submitted():
-		selected_deck = deckslct.deckselect.data
-		return redirect(url_for('modifydeck'))
+		if deckslct.submit.data:
+			selected_deck = deckslct.deckselect.data
+			return redirect(url_for('modifydeck'))
+		elif deckslct.preview.data:
+			preview = True
+			previewdeck = deckslct.deckselect.data
+			for deck in Decks.query.all():
+				if deck.name == previewdeck:
+					print("True")
+					cards = eval(deck.cards)
+					print(cards)
+			for card in cards:
+				if card != "none":
+					print(card)
+					cardimages.append(cardstats.query.filter_by(name=card).first().path)
+			print("Card Images: ",str(cardimages))
+			return render_template('selectdeck.html', title='Existing Decks', form=deckslct, deckdata=deck_data, selectdeck=selected_deck, cardimages=cardimages, preview=preview)
+
 	else:
-		return render_template('selectdeck.html', title='Existing Decks', form=deckslct, deckdata=deck_data, selectdeck=selected_deck)
+		return render_template('selectdeck.html', title='Existing Decks', form=deckslct, deckdata=deck_data, selectdeck=selected_deck, preview=preview)
 
 @app.route('/modify_a_deck', methods = ['GET', 'POST'])
 def modifydeck():
@@ -200,9 +222,6 @@ def modifydeck():
 
 		return render_template('modifydeck.html', title='Modify Deck', form=deckmdfr, selecteddeck=selected_deck)
 
-
-		return render_template('modifydeck.html', title='Modify Deck', form=deckmdfr, selecteddeck=selected_deck)
-
 	elif request.method == 'GET':
 		i = 0
 		for selectfield in selectfields:
@@ -222,6 +241,10 @@ def register():
 		user = Users(first_name=registrationform.first_name.data, last_name=registrationform.last_name.data, email=registrationform.email.data, password=hashed_pw)
 		db.session.add(user)
 		db.session.commit()
+		logFile = open("application/log/log.txt", "a")
+		logString = "Created account under name: "+str(registrationform.first_name.data)+" "+str(registrationform.last_name.data)+" with email address of "+str(registrationform.email.data)+" at date/time: "+datetime.utcnow().strftime("%B %d %Y - %H:%M:%S")+"\n----------------------------------------\n"
+		logFile.write(logString)
+		logFile.close()
 		return redirect(url_for('home'))
 	return render_template('register.html', title='Register', form=registrationform)
 def registration():
@@ -273,6 +296,10 @@ def account():
 			db.session.commit()
 			Users.query.filter_by(id = current_user.id).delete()
 			db.session.commit()
+			logFile = open("application/log/log.txt", "a")
+			logString = "Deleted account under name: "+str(form.first_name.data)+" "+str(form.last_name.data)+" with email address of "+str(form.email.data)+" at date/time: "+datetime.utcnow().strftime("%B %d %Y - %H:%M:%S")+"\n----------------------------------------\n"
+			logFile.write(logString)
+			logFile.close()
 			return redirect(url_for('home'))
 		else:
 			wrong_password = True
@@ -283,6 +310,10 @@ def account():
 		current_user.last_name = form.last_name.data
 		current_user.email = form.email.data
 		db.session.commit()
+		logFile = open("application/log/log.txt", "a")
+		logString = "Updated account as: "+str(form.first_name.data)+" "+str(form.last_name.data)+" with email address of "+str(form.email.data)+" at date/time: "+datetime.utcnow().strftime("%B %d %Y - %H:%M:%S")+"\n----------------------------------------\n"
+		logFile.write(logString)
+		logFile.close()
 		return redirect(url_for('account'))
 	elif request.method == 'GET':
 		form.first_name.data = current_user.first_name

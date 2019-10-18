@@ -127,7 +127,8 @@ class DeckBuilder(FlaskForm):
 
 class DeckSelect(FlaskForm):
 	decksearch = StringField('Search for your deck: ')
-	submit = SubmitField('Go')
+	submit = SubmitField('Modify')
+	preview = SubmitField('Preview')
 	search_all_check = BooleanField('(Check to skip search and show all decks)')
 
 	deckselect = SelectField('Select a deck: ', choices = [])
