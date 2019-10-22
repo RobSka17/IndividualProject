@@ -81,7 +81,7 @@ class SearchByClassForm(FlaskForm):
 
 class DeckBuilder(FlaskForm):
 
-	deckname = StringField('Search:',
+	deckname = StringField('Deck Name:',
 	validators=[
 	Length(min=1, max=100)
 	])
