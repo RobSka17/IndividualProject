@@ -3,9 +3,6 @@ sudo apt-get update
 sudo apt-get install -y python3-pip
 sudo apt-get install -y python3-venv
 
-echo 'Downloading program files...'
-git clone https://github.com/RobSka17/IndividualProject.git
-
 echo 'Initialising virtual environment...'
 cd IndividualProject 
 . venv/bin/activate
