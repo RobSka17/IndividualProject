@@ -1,3 +1,4 @@
+#!/bin/bash
 echo 'Getting base requirements...'
 sudo apt-get update
 sudo apt-get install -y python3-pip
