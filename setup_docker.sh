@@ -1,8 +1,6 @@
 #!/bin/bash
 echo 'Initialising image...'
-user = $(whoami)
-path = /home/$(user)/IndividualProject/cyraz-wor:latest
-docker build -t $(path) .
+docker build -t /home/$(whoami)/IndividualProject/cyraz-wor:latest .
 
 echo 'Running...'
 docker run -d -p 5000:5000
