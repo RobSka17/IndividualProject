@@ -16,7 +16,7 @@ pipeline{
                 }
                 stage('---Run---'){
                     steps{
-				sudo docker run -d --name cyraz-wor -p 5000:5000 cyraz-wor
+				sh "sudo docker run -d --name cyraz-wor -p 5000:5000 cyraz-wor"
                     }
                 }
         }
