@@ -6,4 +6,4 @@ echo 'Initialising image...'
 sudo docker build -t cyraz-wor .
 
 echo 'Running...'
-sudo docker run -d -p 5000:5000 cyraz-wor
+sudo docker run -d --name cyraz-wor -p 5000:5000 cyraz-wor
