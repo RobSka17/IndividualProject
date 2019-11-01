@@ -2,7 +2,7 @@
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
 cd /home/$(whoami)/cyraz-wor
 echo 'Initialising image...'
-sudo docker build -t /home/$(whoami)/cyraz-wor/cyraz-wor:latest .
+sudo docker build -t /home/$(whoami)/cyraz-wor/cyraz-wor .
 
 echo 'Running...'
 sudo docker run -d -p 5000:5000 cyraz-wor
