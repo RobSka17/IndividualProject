@@ -1,3 +1,4 @@
+#!/bin/bash
 echo 'Initialising image...'
 user = $(whoami)
 path = /home/$(user)/IndividualProject/cyraz-wor:latest
