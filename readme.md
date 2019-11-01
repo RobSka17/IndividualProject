@@ -31,3 +31,6 @@ sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
 cd /home/$(whoami)/cyraz-wor
 sudo docker build -t cyraz-wor .
 sudo docker run -d -p 5000:5000 cyraz-wor
+
+Your download will also include a Jenkinsfile which can be used to run the container
+through a Jenkins Pipeline.
