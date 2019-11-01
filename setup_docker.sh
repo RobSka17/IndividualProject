@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
+cd /home/$(whoami)/cyraz-wor
 echo 'Initialising image...'
 sudo docker build -t /home/$(whoami)/cyraz-wor/cyraz-wor:latest .
 
