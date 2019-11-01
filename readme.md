@@ -2,7 +2,8 @@
 
 Welcome to the readme for the 'Cyraz: War of Realms' card search and deck building app!
 This app was developed in Ubuntu 16.04 and is hosted on a Google Cloud virtual instance.
-The app comes with the option of manually following the instructions below or using the appropriate intaller.
+The app comes with the option of manually following the instructions below or using the
+setup file associated with your desired setup method.
 
 -- PRE-REQUISITES --
 
@@ -16,8 +17,17 @@ sudo apt-get install -y python3-venv
 
 To initiate your download of the application files, run the following in your terminal:
 git clone https://github.com/RobSka17/IndividualProject.git
+
+Basic Setup:
 Now, to run the application for the first time, run the following:
-cd IndividualProject
+sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
+cd /home/$(whoami)/cyraz-wor
 . venv/bin/activate
 pip3 install -r requirements.txt
 python3 run.py
+
+Docker Setup:
+sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
+cd /home/$(whoami)/cyraz-wor
+sudo docker build -t cyraz-wor .
+sudo docker run -d -p 5000:5000 cyraz-wor
