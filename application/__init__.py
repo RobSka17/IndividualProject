@@ -12,6 +12,8 @@ login_manager.login_view = 'login'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
+# REMINDER: For the purposes of this application, this key is safe to include in source code.
+# For any projects handling sensitive information, export such keys in environment variables instead.
 app.config['SECRET_KEY'] = '4K6eQpi7n2bxDau'
 
 
