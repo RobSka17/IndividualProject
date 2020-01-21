@@ -9,8 +9,11 @@ setup file associated with your desired setup method.
 
 Before you can make use of the app, you'll need to install a few dependencies.
 To do this, simply run the following commands in your terminal:
+
 sudo apt-get update
+
 sudo apt-get install -y python3-pip
+
 sudo apt-get install -y python3-venv
 
 -- RUNNING CYRAZ: WAR OF REALMS --
@@ -27,9 +30,13 @@ pip3 install -r requirements.txt
 python3 run.py
 
 Docker Setup:
+
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
+
 cd /home/$(whoami)/cyraz-wor
+
 sudo docker build -t cyraz-wor .
+
 sudo docker run -d -p 5000:5000 cyraz-wor
 
 Your download will also include a Jenkinsfile which can be used to run the container
