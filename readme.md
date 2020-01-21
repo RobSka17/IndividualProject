@@ -40,6 +40,8 @@ python3 run.py
 
 **Docker Setup:**
 
+To run the application as a Docker container application, run the following:
+
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
 
 cd /home/$(whoami)/cyraz-wor
