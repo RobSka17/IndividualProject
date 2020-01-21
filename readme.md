@@ -24,10 +24,15 @@ git clone https://github.com/RobSka17/IndividualProject.git
 
 Basic Setup:
 Now, to run the application for the first time, run the following:
+
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
+
 cd /home/$(whoami)/cyraz-wor
+
 . venv/bin/activate
+
 pip3 install -r requirements.txt
+
 python3 run.py
 
 Docker Setup:
