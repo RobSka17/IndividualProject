@@ -22,8 +22,11 @@ To initiate your download of the application files, run the following in your te
 
 git clone https://github.com/RobSka17/IndividualProject.git
 
-Basic Setup:
-Now, to run the application for the first time, run the following:
+Whichever setup option you select from the options below, the application will run  on local host port 5000.
+
+**Basic Setup:**
+
+To run the application in its basic testing form, run the following:
 
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
 
@@ -35,7 +38,7 @@ pip3 install -r requirements.txt
 
 python3 run.py
 
-Docker Setup:
+**Docker Setup:**
 
 sudo mv /home/$(whoami)/IndividualProject /home/$(whoami)/cyraz-wor
 
