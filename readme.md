@@ -19,6 +19,7 @@ sudo apt-get install -y python3-venv
 -- RUNNING CYRAZ: WAR OF REALMS --
 
 To initiate your download of the application files, run the following in your terminal:
+
 git clone https://github.com/RobSka17/IndividualProject.git
 
 Basic Setup:
