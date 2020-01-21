@@ -1,7 +1,7 @@
 -- INTRO --
 
 Welcome to the readme for the 'Cyraz: War of Realms' card search and deck building app!
-This app was developed in Ubuntu 16.04 and is hosted on a Google Cloud virtual instance.
+This app was developed in Ubuntu 16.04 in preparation to be hosted on a Google Cloud virtual instance.
 The app comes with the option of manually following the instructions below or using the
 setup file associated with your desired setup method.
 
