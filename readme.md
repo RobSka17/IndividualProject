@@ -51,4 +51,4 @@ sudo docker build -t cyraz-wor .
 sudo docker run -d -p 5000:5000 cyraz-wor
 
 Your download will also include a Jenkinsfile which can be used to run the container
-through a Jenkins Pipeline.
+through a Jenkins Pipeline. 
