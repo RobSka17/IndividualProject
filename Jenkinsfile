@@ -24,7 +24,7 @@ pipeline
 		{
                     steps
 			{
-				sh "docker run -d --name cyraz-wor -p 5000:5000 cyraz-wor"
+				sh "docker run --name cyraz-wor -p 5000:5000 cyraz-wor"
                     	}
                 }
         }
