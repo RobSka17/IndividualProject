@@ -15,7 +15,6 @@ pipeline
 		{
                         steps
 			{
-				cleanWs()
                               sh label: '', script: '''if [ "$(docker ps -qa -f name=cyraz-wor)" ]; then
         					docker rm -f cyraz-wor
 				fi'''
